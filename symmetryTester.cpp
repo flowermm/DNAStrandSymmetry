@@ -297,9 +297,9 @@ double calculations_loop(MAP& countList,DMAP& dGlobalList,bool asymm,
   avgQ = calculate_avg(qList,dGlobalList,lowerlimit,upperlimit,applyLimits);
   qb = findQBalance(avgQ);
   //Calculate pHats for families in section:
-  pHatsList = calculate_pHats(avgQ,dList,dGlobalList,false,lowerlimit,upperlimit,applyLimits);
+  pHatsList = calculate_pHats(avgQ,dList,dGlobalList,true,lowerlimit,upperlimit,applyLimits);
   numFamiliesUsed = pHatsList.size();
-  //Alternative method below use: arma::fmat avgP = calculate_pHat(avgQ,dList,dGlobalList,true);
+  //Alternative method below use: arma::mat avgP = calculate_pHat(avgQ,dList,dGlobalList,true);
   //Calculate logL:
   logL = calculate_logL(countList,pHatsList);
   //Alternative method below use: logL = calculate_logL2(countList,avgP);
@@ -501,18 +501,19 @@ multiple pHats and each family's count.  Note: limits not available for these me
 
 arma::mat calculate_pHat(arma::mat& avgQ,DMAP& dList,DMAP& dGlobalList,bool global){
   DMAP::iterator it;
-  double sum=0,davg=0;
+  double sum=0,davg=0,count=0;
   for(it=dList.begin();it!=dList.end();++it){
-    if(global){
-      if(std::isfinite(dGlobalList[it->first]))
+    if(it->second!= 0 && std::isfinite(it->second)){
+      if(global){
+        count++;
 	sum+=dGlobalList[it->first];
-    }
-    else{
-      if(std::isfinite(it->second))
+      }else{
+        count++;
 	sum += it->second; 
-    } 
+      }
+    }
   }
-  davg = sum/dList.size();
+  davg = sum/count;
   arma::mat tmp = avgQ*davg;
   calculate_logORexp(tmp,false);
   return tmp;
