@@ -182,7 +182,7 @@ if __name__ == "__main__":
         "note, if not specified, files will be created for all chromosomes. \n\n"+
         "Also note, this program uses partition files for the local option - \n" +
         "these files simply have to be in the directory the program is running from, and are of the title chromosome.txt \n"+
-        "(Example, \"chr22.txt\" ) which contain a chromosome number, and beginning, and end position separated by tabs on each line \n" +
+        "(Example, \"chr22.txt\" ) which contains a chromosome number, the beginning, and end position of the section separated by tabs on each line \n" +
         "(Example, chr22\t1234\t4567). \n\n")
     else:
         print("Incorrect parameters, please supply at least a task and a directory, and (optionally for local), a chromosome --- or use parameter \"help\"")
