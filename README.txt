@@ -3,7 +3,7 @@ DNAStrandSymmetry
 
 Masters Project for finding the type of symmetry of a given region, and for finding regions that may switch their symmetry status.
 
-
+================
 README
 Firstly, our current algorithm for finding asymmetric regions:
 1. Make a “local count matrix” of each family in each partition leaving out instances with less than 40 bases – use makeReadableFile.py for this, symmetryTester.cpp will do the rest.
